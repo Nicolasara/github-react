@@ -1,0 +1,45 @@
+.buttons-container {
+    text-align: center;
+}
+  
+.button-flat {
+      display: inline-block;
+      vertical-align: bottom;
+      outline: 0;
+      text-decoration: none;
+      cursor: pointer;
+      padding: .4rem;
+      box-sizing: border-box;
+      font-size: 1em;
+      font-family: inherit;
+      border-radius: 3px;
+      transition: all .2s ease;
+      user-select: none;
+      line-height: 2.5em;
+      padding: 0 .8em;
+      border: 0;
+      color: inherit;
+      position: relative;
+      transform: translateZ(0);
+    margin: 5px;
+    margin-bottom: 10px;
+}
+  
+.button-flat * {
+    pointer-events: none;
+}
+
+.button-flat:hover:not(.raised), .button-flat:focus:not(.raised) {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.button-flat:active:not(.raised) {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.button-flat:disabled {
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
