@@ -6,14 +6,14 @@ import './styles/form.css';
 import Card from './components/Card/Card';
 
 function App() {
-  const [repos, setRepos] = useState([]);
-  const [repoCount, setRepoCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState("rrousselGit");
   const reposPerPage = 18;
   const startingUsername = "nicolasara";
   const startingPage = 1;
+  const [repos, setRepos] = useState([]);
+  const [repoCount, setRepoCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(startingPage);
+  const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState(startingUsername);
 
   useEffect(() => {
     async function getData() {
@@ -85,8 +85,7 @@ function App() {
           <form onSubmit={handleSubmition}>
             <label>Github Username</label>
             <div className="input-container">
-              <input value={username}
-                     onChange={(e) => setUsername(e.target.value)}
+              <input onChange={(e) => setUsername(e.target.value)}
                      type="text"></input>
             </div>
           </form>
