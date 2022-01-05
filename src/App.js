@@ -12,11 +12,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState("rrousselGit");
   const reposPerPage = 18;
+  const startingUsername = "nicolasara";
+  const startingPage = 1;
 
   useEffect(() => {
     async function getData() {
-      let response = await getAllReposByUsername(username, reposPerPage, currentPage);
-      let user = await getUser(username);
+      let response = await getAllReposByUsername(startingUsername, reposPerPage, startingPage);
+      let user = await getUser(startingUsername);
       setRepoCount(user.public_repos)
       setRepos(groupArray(response, 3));
       setLoading(false);
@@ -39,7 +41,7 @@ function App() {
 
   const back = async () => {
     console.log(repoCount, currentPage * reposPerPage)
-    if (currentPage == 1) {
+    if (currentPage === 1) {
       return;
     }
     console.log(currentPage);
