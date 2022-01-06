@@ -5,7 +5,7 @@ function Card({repo}) {
     return (
         <a href={repo.html_url} className="card">    
             <div className="card-hero">
-                <img src={repo.image} width="288" />
+                {/* <img src={repo.image} alt="project thumbnail" width="288" /> */}
             </div>
             <div className="card-header">
                 <h3>{repo.name}</h3>
@@ -15,7 +15,7 @@ function Card({repo}) {
             </div>
             <div className="card-footer">
                 <div className="footer-item">
-                    <img src={repo.owner.avatar_url} className="avatar" width="32" height="32" />
+                    <img src={repo.owner.avatar_url} alt="user avatar icon" className="avatar" width="32" height="32" />
                 </div>
                 <div className="footer-item">
                     <strong>{repo.owner.login}</strong>
@@ -23,7 +23,7 @@ function Card({repo}) {
             </div>
             <div className="card-footer-hidden">
                 <div className="footer-item-hidden">
-                    <img src={repo.owner.avatar_url} className="avatar" width="32" height="32" />
+                    <img src={repo.owner.avatar_url} alt="user avatar icon" className="avatar" width="32" height="32" />
                 </div>
             </div>
             {/* <a href={repo.homepage}></a> */}
