@@ -6,50 +6,42 @@ import './styles/form.css';
 import Card from './components/Card/Card';
 
 function App() {
-  const reposPerPage = 18;
-  const startingUsername = "nicolasara";
-  const startingPage = 1;
+  const reposPerPage = 15;
   const [repos, setRepos] = useState([]);
   const [repoCount, setRepoCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(startingPage);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState(startingUsername);
+  const [username, setUsername] = useState("nicolasara");
+  const [inputUsername, setInputUsername] = useState("")
 
   useEffect(() => {
     async function getData() {
-      let response = await getAllReposByUsername(startingUsername, reposPerPage, startingPage);
-      let user = await getUser(startingUsername);
+      console.log(username, reposPerPage, page);
+      let response = await getAllReposByUsername(username, reposPerPage, page);
+      let user = await getUser(username);
       setRepoCount(user.public_repos)
       setRepos(groupArray(response, 3));
       setLoading(false);
     }
     getData();
-  }, []);
+  }, [username, page]);
 
   const next = async () => {
-    console.log(repoCount, currentPage * reposPerPage)
-    if (repoCount < currentPage * reposPerPage) {
+    console.log(repoCount, page * reposPerPage)
+    if (repoCount < page * reposPerPage) {
       return;
     }
-    console.log(currentPage);
-    setCurrentPage(currentPage + 1);
-    setLoading(true);
-    let response = await getAllReposByUsername(username, reposPerPage, currentPage + 1);
-    setRepos(groupArray(response, 3));
-    setLoading(false);
+    console.log(page);
+    setPage(page + 1);
   }
 
   const back = async () => {
-    console.log(repoCount, currentPage * reposPerPage)
-    if (currentPage === 1) {
+    console.log(repoCount, page * reposPerPage)
+    if (page === 1) {
       return;
     }
-    console.log(currentPage);
-    setCurrentPage(currentPage - 1);
-    setLoading(true);
-    let response = await getAllReposByUsername(username, reposPerPage, currentPage - 1)
-    setRepos(groupArray(response, 3));
-    setLoading(false);
+    console.log(page);
+    setPage(page - 1);
   }
 
   const groupArray = (arr, n) => {
@@ -63,19 +55,17 @@ function App() {
         }
       }
       results.push(group);
-      console.log(group);
     }
-    console.log(results)
     return results;
   }
 
-  const handleSubmition = async (newUsername) => {
-    console.log("hello", newUsername);
-    setLoading(true);
-    let response = await getAllReposByUsername(username, reposPerPage, currentPage)
-    console.log(response);
-    setRepos(groupArray(response, 3));
-    setLoading(false);
+  const handleSubmition = async (event) => {
+    event.preventDefault();
+    setUsername(inputUsername);
+  }
+
+  const handleChange = async (event) => {
+    setInputUsername(event.target.value);
   }
 
   return (
@@ -85,8 +75,7 @@ function App() {
           <form onSubmit={handleSubmition}>
             <label>Github Username</label>
             <div className="input-container">
-              <input onChange={(e) => setUsername(e.target.value)}
-                     type="text"></input>
+              <input name="username" value={inputUsername} onChange={handleChange} type="text"></input>
             </div>
           </form>
           {repos.map((repoGroup, i) => {
@@ -102,6 +91,7 @@ function App() {
           })}
           <div className="buttons-container">
             <button onClick={back} className='button-flat'>back</button>
+            <h2 id="page-counter">{page}</h2>
             <button onClick={next} className='button-flat'>next</button>
           </div>
         </div>
